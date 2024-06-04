@@ -1,11 +1,34 @@
 const generate = document.getElementById("generate");
 const file_input = document.getElementById("file");
 const table = document.querySelector("table tbody");
-console.log('table',table)
+const toggleSwitch = document.getElementById('toggleSwitch');
+
+let toggleState = false;
+toggleSwitch.addEventListener('change', () => {
+    if (toggleSwitch.checked) {
+        console.log('Toggle is ON');
+        // Add your logic here when toggle is ON
+        generate.textContent = "Charger";
+        generate.style.backgroundColor = "green";
+        toggleState = true
+    } else {
+        console.log('Toggle is OFF');
+        // Add your logic here when toggle is OFF
+        generate.textContent = "Analyser"
+        generate.style.backgroundColor = "blue";
+        toggleState = false
+    }
+});
 
 generate.addEventListener("click", () => {
-//    PapaParse(file_input)
-   addLastMonthData()
+    //    PapaParse(file_input)
+    if(toggleState == false){
+        addLastMonthData()
+    }
+    else {
+        PapaParse()
+    }
+    
 });
 
 // adding the last month data
@@ -15,30 +38,7 @@ function addLastMonthData() {
     // reading the last month data from the localstorage
     let lastMonthData = localStorage.getItem('lastMonthData');
     getLastMonthData = JSON.parse(lastMonthData);
-    console.log(typeof getLastMonthData[0].reference)
-    // console.log(jsonData[0].phase1 * 100000)
-  // Iterate over the jsonData array
-//   for (var i = 0; i < jsonData.length; i++) {
-//     var obj = jsonData[i];
 
-//     // Convert the values of the phase1, phase2, and phase3 properties to numbers
-//     obj.phase1 = Number(obj.phase1);
-//     obj.phase2 = Number(obj.phase2);
-//     obj.phase3 = Number(obj.phase3);
-
-//     // Access the properties of the JavaScript object
-//     console.log(obj.reference, obj.phase1, obj.phase2, obj.phase3);
-//   }
-    // console.log('----',lastMonthData)
-    // if (lastMonthData) {
-    //     getLastMonthData = Papa.parse(lastMonthData[0],{
-    //         header:true,
-    //         dynamicTyping: true,
-    //         skipEmptyLines: true,
-    //     });
-    //     console.log(getLastMonthData);
-    // }
-    
     // parsing the new data from the new month
     Papa.parse(file_input.files[0], {
         download: true,
@@ -47,7 +47,6 @@ function addLastMonthData() {
         skipEmptyLines: true,
         complete: function (results) {
             getCurrentMonthData = results.data;
-            // console.log(getCurrentMonthData);
             // comparing the new data with the last month data
             if (getLastMonthData) {
                 let nullChecker = null
@@ -55,40 +54,49 @@ function addLastMonthData() {
                     const matchingObj2 = getCurrentMonthData.find(obj2 => obj2.S_Lc_ref === obj1.reference);
                     if (matchingObj2) {
                         // console.log(obj1.phase1 - matchingObj2.S_Phase1,obj1.phase2 - matchingObj2.S_Phase2,obj1.phase3 - matchingObj2.S_Phase3)
-                       nullChecker = [obj1.reference,obj1.phase1 - matchingObj2.S_Phase1,obj1.phase2 - matchingObj2.S_Phase2,obj1.phase3 - matchingObj2.S_Phase3]
-                       const tr = document.createElement('tr');
-                       if(!nullChecker.includes(0)){
-                        console.log('===---->>',nullChecker)
-                        const td = document.createElement('td');
-                        td.textContent = obj1.reference;
-                        tr.appendChild(td);
-                        const td1 = document.createElement('td');
-                        td1.textContent = obj1.phase1 - matchingObj2.S_Phase1;
-                        tr.appendChild(td1);
-                        const td2 = document.createElement('td');
-                        td2.textContent = obj1.phase2 - matchingObj2.S_Phase2;
-                        tr.appendChild(td2);
-                        const td3 = document.createElement('td');
-                        td3.textContent = obj1.phase3 - matchingObj2.S_Phase3;
-                        tr.appendChild(td3);
-                        table.appendChild(tr);
-                        
-                       }
-                        
-                    
+                        nullChecker = [obj1.reference, matchingObj2.S_Phase1 - obj1.phase1, matchingObj2.S_Phase2 - obj1.phase2, matchingObj2.S_Phase3 - obj1.phase3]
+                        const tr = document.createElement('tr');
+                        if (nullChecker.includes(0)) {
+                            const td = document.createElement('td');
+                            td.textContent = obj1.reference;
+                            tr.appendChild(td);
+                            const td1 = document.createElement('td');
+                            td1.textContent = matchingObj2.S_Phase1 - obj1.phase1;
+                            if (matchingObj2.S_Phase1 - obj1.phase1 === 0) {
+                                td1.style.backgroundColor = 'red';
+                                td1.style.color = 'white';
+                            }
+                            tr.appendChild(td1);
+                            const td2 = document.createElement('td');
+                            td2.textContent = matchingObj2.S_Phase2 - obj1.phase2;
+                            if (matchingObj2.S_Phase2 - obj1.phase2 === 0) {
+                                td2.style.backgroundColor = 'red';
+                                td2.style.color = 'white';
+                            }
+                            tr.appendChild(td2);
+                            const td3 = document.createElement('td');
+                            td3.textContent = matchingObj2.S_Phase3 - obj1.phase3;
+                            if (matchingObj2.S_Phase3 - obj1.phase3 === 0) {
+                                td3.style.backgroundColor = 'red';
+                                td3.style.color = 'white';
+                            }
+                            tr.appendChild(td3);
+                            table.appendChild(tr);
+
+                        }
+
+
                     } else {
-                        console.log("nothing")
-                      return obj1;
+                        return
                     }
-                    
-                  });
-                //   console.log(matchedData)
+
+                });
             }
-           
+
         },
-        
+
     })
-    
+
 }
 
 
@@ -121,7 +129,7 @@ function PapaParse() {
 
             // Add data to local storage
             let lastMonthData = JSON.stringify(data);
-            
+
             // Check if the data already exists in local storage
             let existingData = localStorage.getItem('lastMonthData');
 
@@ -135,5 +143,5 @@ function PapaParse() {
             }
         }
     });
-    
+
 }
