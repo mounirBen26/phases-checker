@@ -1,7 +1,9 @@
 const generate = document.getElementById("generate");
 const file_input = document.getElementById("file");
+const file_input_container = document.getElementById("file-input");
 const table = document.querySelector("table tbody");
 const toggleSwitch = document.getElementById('toggleSwitch');
+const role_fichier = document.getElementById('role-fichier');
 
 let toggleState = false;
 toggleSwitch.addEventListener('change', () => {
@@ -10,12 +12,20 @@ toggleSwitch.addEventListener('change', () => {
         // Add your logic here when toggle is ON
         generate.textContent = "Charger";
         generate.style.backgroundColor = "green";
+        role_fichier.textContent = "Charger le Fichier Dans la Mémoire";
+        role_fichier.style.fontSize = "14px";
+        role_fichier.style.fontWeight = "bold";
+        file_input_container.style.backgroundColor ="#9FE2BF"
         toggleState = true
     } else {
         console.log('Toggle is OFF');
         // Add your logic here when toggle is OFF
         generate.textContent = "Analyser"
         generate.style.backgroundColor = "blue";
+        role_fichier.textContent = "Charger le Fichier Pour analyser";
+        role_fichier.style.fontWeight = "bold";
+        role_fichier.style.fontSize = "14px";
+        file_input_container.style.backgroundColor = "#c6eed9"
         toggleState = false
     }
 });
@@ -115,7 +125,6 @@ function PapaParse() {
         complete: function (results) {
             arrayobj = results.data;
             let data = [];
-
             for (let i = 0; i < arrayobj.length; i++) {
                 let item = arrayobj[i];
                 let dataItem = {
@@ -139,7 +148,9 @@ function PapaParse() {
                 console.log('Data added to local storage');
             } else {
                 // The data already exists in local storage
-                console.log('Data already exists in local storage');
+                localStorage.setItem('lastMonthData', lastMonthData);
+                alert('fichier chargé dans la mémoire correctement');
+                
             }
         }
     });

@@ -29,7 +29,6 @@
     font-style: normal;
   }
 html,body{
-    
     background-image: linear-gradient(to bottom, #f2f2f2, #ccc, #a7dae3);
     height: 100%;
     margin: 0;  
@@ -39,6 +38,11 @@ html,body{
     justify-content: center;
     flex-direction: column;
    
+}
+#role-fichier{
+    font-family: "Cairo-Bold", sans-serif;
+    font-size: 14px;
+
 }
 #title{
     color: rgb(111, 38, 168);
@@ -66,7 +70,7 @@ html,body{
     flex-direction: column; 
     justify-content: center;
     align-items: center;
-    background-color: rgb(213, 208, 218);
+    background-color: #c6eed9;
     padding:20px;
     margin-left:20px ;
     height: 360px;
@@ -245,4 +249,19 @@ input:checked + .slider {
 
 input:checked + .slider:before {
     transform: translateX(26px);
+}
+
+.logo-title-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 60px; /* Adjust the width as needed */
+    height: 60px; /* Adjust the height as needed */
+    margin-right: 10px; /* Space between logo and title */
+}
+
+h3#title {
+    margin: 0; /* Remove default margin */
 }

@@ -5,14 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phases Checker</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.jpg" type="image/x-icon">
     <link rel="stylesheet" href="fonts/Cairo-Bold.ttf">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js" integrity="sha512-dfX5uYVXzyU8+KHqj8bjo7UkOdg18PaOtpa48djpNbZHwExddghZ+ZmzWT06R5v6NSk3ZUfsH6FNEDepLx9hPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
-    <h3 id="title">Phases Checker</h3>
+    <div class="logo-title-container" style="margin-bottom: 30px;">
+        <img src="logo.png" alt="Logo" class="logo">
+        <h3 id="title">Phases Checker</h3>
+    </div>
     <section id="container">
         <section id="file-input">
-            <h4>Importer le Fichier</h4>
+            <h4 id="role-fichier">Charger le Fichier Pour analyser</h4>
             <input type="file" id="file">
             <button type="submit" id="generate">Analyser</button>
             <label class="switch">
