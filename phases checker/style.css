@@ -77,7 +77,7 @@ html,body{
     width: 240px;
 }
 #display{
-    margin-right: 90px;
+    margin-right: 60px;
     max-height: 300px; /* Adjust height as needed */
     overflow-y: auto; /* Enable vertical scrolling */
     display: flex;

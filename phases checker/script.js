@@ -8,7 +8,7 @@ const role_fichier = document.getElementById('role-fichier');
 let toggleState = false;
 toggleSwitch.addEventListener('change', () => {
     if (toggleSwitch.checked) {
-        console.log('Toggle is ON');
+        // console.log('Toggle is ON');
         // Add your logic here when toggle is ON
         generate.textContent = "Charger";
         generate.style.backgroundColor = "green";
@@ -18,7 +18,7 @@ toggleSwitch.addEventListener('change', () => {
         file_input_container.style.backgroundColor ="#9FE2BF"
         toggleState = true
     } else {
-        console.log('Toggle is OFF');
+        // console.log('Toggle is OFF');
         // Add your logic here when toggle is OFF
         generate.textContent = "Analyser"
         generate.style.backgroundColor = "blue";
@@ -59,6 +59,7 @@ function addLastMonthData() {
             getCurrentMonthData = results.data;
             // comparing the new data with the last month data
             if (getLastMonthData) {
+                let index = 0
                 let nullChecker = null
                 const matchedData = getLastMonthData.map(obj1 => {
                     const matchingObj2 = getCurrentMonthData.find(obj2 => obj2.S_Lc_ref === obj1.reference);
@@ -67,6 +68,10 @@ function addLastMonthData() {
                         nullChecker = [obj1.reference, matchingObj2.S_Phase1 - obj1.phase1, matchingObj2.S_Phase2 - obj1.phase2, matchingObj2.S_Phase3 - obj1.phase3]
                         const tr = document.createElement('tr');
                         if (nullChecker.includes(0)) {
+                            index++
+                            const tdIndex = document.createElement('td');
+                            tdIndex.textContent = index;
+                            tr.appendChild(tdIndex);
                             const td = document.createElement('td');
                             td.textContent = obj1.reference;
                             tr.appendChild(td);
@@ -94,7 +99,7 @@ function addLastMonthData() {
                             table.appendChild(tr);
 
                         }
-
+                        console.log("index ------>",index)
 
                     } else {
                         return
