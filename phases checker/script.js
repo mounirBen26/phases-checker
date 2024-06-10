@@ -111,12 +111,7 @@ function addLastMonthData() {
         },
 
     })
-
 }
-
-
-
-
 
 
 // adding the n-1 month data
