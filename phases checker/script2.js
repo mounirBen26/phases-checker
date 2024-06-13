@@ -3,18 +3,22 @@ const exportButton = document.getElementById('export-button');
 const fileInput = document.getElementById('file');
 // const table = document.querySelector('table tbody');
 const display = document.getElementById('display');
-
-
+const tableTitle = document.getElementById('table-title');
+let functonState = false
 function HandleExport() {
-    fileInput.value = '';
-    container.style.backgroundColor = "#E7BCDE";
-    file_input_container.style.backgroundColor ="white";
-    role_fichier.textContent = "Charger le Fichier Export N-1";
+    exportState = !exportState	
     title.textContent = "Energy Export Checker";
+    tableTitle.textContent = "Clients Ayant une Energie Export";
+    fileInput.value = '';
+    container.style.backgroundColor = "#c6eed9";
+    display.style.backgroundColor = "white";
+    display.style.borderRadius = "10px";
+    file_input_container.style.backgroundColor ="white";
+    role_fichier.textContent = "Charger le Fichier Export Mois n";
 }
 
 // adding the n-1 month export energydata
-function PapaParseExpLastMonth() {
+function AddLastMonthDataExp() {
     let arrayobj = [];
     Papa.parse(file_input.files[0], {
         download: true,
@@ -56,8 +60,8 @@ function PapaParseExpLastMonth() {
 }
 
 
-// adding the N month data
-function addCurrentMonthData() {
+// adding the N month data Export
+function AddCurrentMonthDataExp() {
     let getLastMonthDataExp = null
     let getCurrentMonthDataExp = null
     // reading the last month data from the localstorage
@@ -116,7 +120,6 @@ function addCurrentMonthData() {
                             table.appendChild(tr);
 
                         }
-                        console.log("index ------>",index)
 
                     } else {
                         return
@@ -129,8 +132,42 @@ function addCurrentMonthData() {
 
     })
 }
+//switch button betwenn phases checker and export checker
 exportButton.addEventListener('click', HandleExport)
-generate.addEventListener('click',()=>{
-    // PapaParseExpLastMonth()
-    addCurrentMonthData()
-})
+
+// toggle switch
+// let toggleState = false;
+// toggleSwitch.addEventListener('change', () => {
+//     if (toggleSwitch.checked) {
+//         // console.log('Toggle is ON');
+//         // Add your logic here when toggle is ON
+//         generate.textContent = "Charger";
+//         generate.style.backgroundColor = "lightblue";
+//         role_fichier.textContent = " 1- Charger le Fichier Export n-1 Dans la Mémoire";
+//         role_fichier.style.fontSize = "14px";
+//         role_fichier.style.fontWeight = "bold";
+//         file_input_container.style.backgroundColor ="#9FE2BF"
+//         toggleState = true
+//     } else {
+//         // console.log('Toggle is OFF');
+//         // Add your logic here when toggle is OFF
+//         generate.textContent = "Analyser"
+//         generate.style.backgroundColor = "blue";
+//         role_fichier.textContent = "2- Charger le Fichier Export Mois n";
+//         role_fichier.style.fontWeight = "bold";
+//         role_fichier.style.fontSize = "14px";
+//         file_input_container.style.backgroundColor = "#c6eed9"
+//         toggleState = false
+//     }
+// });
+
+generate.addEventListener("click", () => {
+    if(toggleState == false){
+        AddCurrentMonthDataExp()
+    }
+    else {
+        AddLastMonthDataExp()
+    }
+    
+});
+

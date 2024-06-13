@@ -17,10 +17,11 @@
     <section id="container">
         <section id="file-input">
             <div class="button-container">
+                <p style="font-family: 'Ubuntu-Medium', sans-serif; font-size: 14px;">Phases/Export</p>
                 <button id="phases-button">Phases</button>
-                <button id="export-button">Export</button>
             </div>
             <h4 id="role-fichier">Charger le Fichier Pour analyser</h4>
+            <span class="loader" id="loader"></span>
             <input type="file" id="file">
             <button type="submit" id="generate">Analyser</button>
             <label class="switch">
@@ -29,7 +30,7 @@
             </label>
         </section>
         <section id="display">
-            <h4>Phases à consommation zéro</h4>
+            <h4 id="table-title">Phases à consommation zéro</h4>
             <table id="table">
                 <thead>
                     <tr>
@@ -45,8 +46,7 @@
             </table>
         </section>
     </section>
-    <p style="font-size: 10px;">Développed by Benlazerg Hacene @ version 1.0 - 2024 </p>
+    <p style="font-size: 10px;">Developped by Benlazerg Hacene @ version 2.0 - 2024 </p>
     <script src="script.js"></script>
-    <script src="script2.js"></script>
 </body>
 </html>
